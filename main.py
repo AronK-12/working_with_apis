@@ -24,6 +24,7 @@ update_fox_images_list()
 def main(page: ft.Page) -> None:
     page.title = "Random Fox App"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.theme_mode = ft.ThemeMode.LIGHT
 
     def get_next_image():
         return fox_images.pop()
@@ -45,9 +46,16 @@ def main(page: ft.Page) -> None:
             page.update()
             page.controls.pop(-1)
 
+        count_txt.value = str(int(count_txt.value) + 1)
+
+    count_txt = ft.TextField(value='0')
     fox_btn = ft.IconButton(icon=ft.icons.ADD, on_click=get_fox_image)
 
-    page.add(fox_btn)
+    page.add(ft.Row([
+        count_txt,
+        fox_btn
+    ], alignment=ft.MainAxisAlignment.CENTER))
+    page.update()
 
 
 ft.app(target=main)
